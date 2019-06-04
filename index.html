@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>PRO DSX Controller</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+
+
+    <style>
+
+      .p{
+        color:white;
+      }
+        .my_navbar{
+            border: 0px solid red;
+        }
+        .my_side-menu {
+            height:100%;
+            width:0;
+            position:fixed;
+            z-index:1;
+            top:0;
+            left:0;
+            background-color: white;
+            padding-top: 60px;
+            transition:0.5s;
+            overflow-x:hidden;
+        }
+        .my_side-menu a {
+     
+            padding: 10px;
+            text-decoration:none;
+            font-family:"arial";
+            font-size : 20px;
+            color:rgb(34, 35, 34);
+            display:block;
+            transition:0.3s;
+        }
+        .my_side-menu a:hover {
+     
+            color:#0066FF;
+     
+        }
+        .my_side-menu .btn-close{
+
+            position:absolute;
+            top:0;
+            right : 1px;
+            font-size:36px;
+            margin-left:50px
+        }
+        .my_main{
+            border: 0px solid red;
+          
+        }
+        .my_icon{
+            padding: 10px ;
+          
+        }
+        body {background-color: rgb(34, 35, 34);
+              overflow: auto; 
+              opacity: 1;
+  
+        }
+        .my-Container {
+              
+                    border: 0px solid red;
+                    color:white;  
+                    text-align: "center" ;           
+        }
+        .my-Row {
+                    border: 0px solid blue;
+                    color:white;                               
+        }
+        .my-Col {
+                    border: 0px solid grey;
+                    text-align: center;
+                    color:white;           
+        }
+
+        .my_form_input{
+                    color: blue;
+                    width: 100%;
+                    padding: 0px;
+        }
+        .my_img {
+                  display: block;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;
+                  padding: 10px;
+       
+        }
+        .my_middle {
+                 
+                  padding: 5px;                 
+                  margin-top: 50px;
+                  margin-bottom: 50px;
+                  margin-right: 20px;
+                  margin-left: 20px;
+         
+        }
+        .my_img_small {
+                  display: block;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 10%;
+                  padding: 1px;
+        }
+
+        .my_spacing{
+          margin-right: 25px;
+          margin-left: 25px;
+
+        }
+        .my_text{
+          font: 12px arial, sans-serif;
+        }
+  /* --------------------------------------------------------- */
+        .my_videowall{
+          background-color: green;
+        }
+     /* Grids */
+        .grid-containerRX {
+          display: grid;
+          grid-template-columns:repeat(10, 1fr) ;
+          grid-column-gap: 1px;
+          grid-row-gap: 1px;
+          padding: 5px;
+
+        }
+
+        .grid-item {
+          border: 1px solid red;
+          padding: 8px;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: bold;
+          color: #ffffff;
+          text-align: center;
+
+        }
+
+        .grid-item-vw2x2-1{
+          grid-column: 4 / 6;
+          background-color: green;
+          padding: 2px;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: bold;
+          color: #ffffff;
+          text-align: center;
+        }
+        .grid-item-vw2x2-2{
+          grid-column: 6/ 8;
+          background-color: green;
+          padding: 2px;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: bold;
+          color: #ffffff;
+          text-align: center;
+        }
+
+/* --------------------------------------------------------- */
+        .col-xs-1-10,
+        .col-sm-1-10 {
+          position: relative;
+          min-height: 1px;
+        }
+
+        .col-xs-1-10 {
+          width: 10%;
+          float: left;
+        }
+        @media screen and (max-width: 768px) {
+
+          /* #TXvideoPreview{display: none;} */
+          #sourePreviewtext{display: none;}
+              
+        } 
+
+        @media (min-width: 768px) {
+          .col-sm-1-10 {
+            width: 10%;
+            float: left;
+           
+          }
+        }
+
+        @media (min-width: 992px) {
+          .col-md-1-10 {
+            width: 10%;
+            float: left;
+          }
+        }
+
+        @media (min-width: 1200px) {
+          .col-lg-1-10 {
+            width: 10%;
+            float: left;
+          }
+        }
+    
+    </style>
+  </head>
+<body>
+
+
+<div id = "my_side-menu" class = "my_side-menu">
+        <!-- symbol for X for 'close' = &times -->
+        <a href = "#" class = "btn-close" onclick = "closeSideMenu()">&times;</a>  
+        <a href="#" onclick= "show_Home()"><span class="fas fa-home" aria-hidden="true"></span> Home </a>
+        <a href="#"><span class = "fas fa-cog" aria-hidden="true"></span> Settings</a>
+        <a href="#" onclick = "show_Devices()"><span class= "fas fa-tv" aria-hidden="true" ></span> Devices</a>
+        <a href="#" onclick = "saveFavoriteScene()"><span class="fas fa-bookmark" aria-hidden="true" ></span> Save Scene</a>      
+
+</div>
+
+<div class="container my-Container overflow-auto">
+    <div class="row">
+      <div class="col-md-2 my-Col">
+          <!-- Hamburger Menu Icon -->
+          <span id = "hamburger_menu" style="margin:left;display:table;"> <a href = "#"  onclick = "openSideMenu()">
+            <!-- Hamburger Menu Icon Using SVG  -->
+            <svg width = "30" height = "30">
+            <path d = "M0 ,5 30, 5" stroke = "#fff" stroke-width = "3"/>
+            <path d = "M0 ,14 30, 14" stroke = "#fff" stroke-width = "3"/>
+            <path d = "M0 ,23 30, 23" stroke = "#fff" stroke-width = "3"/>
+            </svg>
+            </a>
+        </span>
+      </div>
+        <div class="col-md-2 my-Col"></div>
+        <div class="col-md-4 my-Col"><img src="img/octava_logo_white-200.png" width = "25%" ></div>
+        <div class="col-md-2 my-Col"></div>
+        <div class="col-md-2 my-Col">PRO DSX V 2.0 </div>
+    </div>
+ 
+    <div id = "topRow" class="row">
+        <div class="col-md-2 my-Col" ></div>
+        <div class="col-md-2 my-Col"></div>
+        <div id = "selectedTV" class="col-md-4 my-Col"><span id = "SelectedTV_Label">TOP TV</span><img id ='img-selectedTV' src="img/tv_white_144.png" class= "my_img_small" ></div>
+        <div class="col-md-2 my-Col">
+          <button id = 'save-btn' type="button" class=" btn btn-primary btn-block" onclick = "saveUserInputs()">
+            <span class= "fas fa-file-export" aria-hidden="true"></span> Save
+          </button>
+        </div>
+        <div class="col-md-2 my-Col">
+          <button id = 'cancel-btn' type="button" class=" btn btn-danger btn-block" onclick = "show_Home()">
+            <span class="fas fa-times" aria-hidden="true"></span> Cancel
+          </button>
+        </div>
+    </div>
+
+
+    <div class="row">
+      <div id = 'tv1' class=" col-md-1-10 my-Col"><span id = "tv1Label"></span><img id ='img-tv1' src="img/tv_white_144.png" class= "my_img"  alt="1"><div id ='tv1source'></div><input type="text" id = "inputTV1name" class = "my_form_input" name ="1" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV1 name"></div>
+      <div id = 'tv2' class=" col-md-1-10 my-Col"><span id = "tv2Label"></span><img id ='img-tv2' src="img/tv_white_144.png" class= "my_img"  alt="2"><div id ='tv2source'></div><input type="text" id = "inputTV2name" class = "my_form_input" name ="2" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV2 name"></div>
+      <div id = 'tv3' class=" col-md-1-10 my-Col"><span id = "tv3Label"></span><img id ='img-tv3' src="img/tv_white_144.png" class= "my_img"  alt="3"><div id ='tv3source'></div><input type="text" id = "inputTV3name" class = "my_form_input" name ="3" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV3 name"></div>
+      <div id = 'tv4' class=" col-md-1-10 my-Col"><span id = "tv4Label"></span><img id ='img-tv4' src="img/tv_white_144.png" class= "my_img"  alt="4"><div id ='tv4source'></div><input type="text" id = "inputTV4name" class = "my_form_input" name ="4" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV4 name"></div>
+      <div id = 'tv5' class=" col-md-1-10 my-Col"><span id = "tv5Label"></span><img id ='img-tv5' src="img/tv_white_144.png" class= "my_img"  alt="5"><div id ='tv5source'></div><input type="text" id = "inputTV5name" class = "my_form_input" name ="5" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV5 name"></div>
+      <div id = 'tv6' class=" col-md-1-10 my-Col"><span id = "tv6Label"></span><img id ='img-tv6' src="img/tv_white_144.png" class= "my_img"  alt="6"><div id ='tv6source'></div><input type="text" id = "inputTV6name" class = "my_form_input" name ="6" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV6 name"></div>
+      <div id = 'tv7' class=" col-md-1-10 my-Col"><span id = "tv7Label"></span><img id ='img-tv7' src="img/tv_white_144.png" class= "my_img"  alt="7"><div id ='tv7source'></div><input type="text" id = "inputTV7name" class = "my_form_input" name ="7" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV7 name"></div>
+      <div id = 'tv8' class=" col-md-1-10 my-Col"><span id = "tv8Label"></span><img id ='img-tv8' src="img/tv_white_144.png" class= "my_img"  alt="8"><div id ='tv8source'></div><input type="text" id = "inputTV8name" class = "my_form_input" name ="8" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV8 name"></div>
+      <div id = 'tv9' class=" col-md-1-10 my-Col"><span id = "tv9Label"></span><img id ='img-tv9' src="img/tv_white_144.png" class= "my_img"  alt="9"><div id ='tv9source'></div><input type="text" id = "inputTV9name" class = "my_form_input" name ="9" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV9 name"></div>
+      <div id = 'tv10' class="col-md-1-10 my-Col"><span id = "tv10Label"></span><img id ='img-tv10' src="img/tv_white_144.png" class= "my_img"  alt="10"><div id ='tv10source'></div><input type="text" id = "inputTV10name" class = "my_form_input" name ="10" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV10 name"></div>
+    </div>
+
+    <div class="row">
+        <div id = 'tv11' class="col-md-1-10 my-Col"><span id = "tv11Label"></span><img id ='img-tv11' src="img/tv_white_144.png" class= "my_img"  alt="11"><div id ='tv11source'></div><input type="text" id = "inputTV11name" class = "my_form_input" name ="11" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV11 name"></div>
+        <div id = 'tv12' class="col-md-1-10 my-Col"><span id = "tv12Label"></span><img id ='img-tv12' src="img/tv_white_144.png" class= "my_img"  alt="12"><div id ='tv12source'></div><input type="text" id = "inputTV12name" class = "my_form_input" name ="12" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV12 name"></div>
+        <div id = 'tv13' class="col-md-1-10 my-Col"><span id = "tv13Label"></span><img id ='img-tv13' src="img/tv_white_144.png" class= "my_img"  alt="13"><div id ='tv13source'></div><input type="text" id = "inputTV13name" class = "my_form_input" name ="13" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV13 name"></div>
+        <div id = 'tv14' class="col-md-1-10 my-Col"><span id = "tv14Label"></span><img id ='img-tv14' src="img/tv_white_144.png" class= "my_img"  alt="14"><div id ='tv14source'></div><input type="text" id = "inputTV14name" class = "my_form_input" name ="14" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV14 name"></div>
+        <div id = 'tv15' class="col-md-1-10 my-Col"><span id = "tv15Label"></span><img id ='img-tv15' src="img/tv_white_144.png" class= "my_img"  alt="15"><div id ='tv15source'></div><input type="text" id = "inputTV15name" class = "my_form_input" name ="15" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV15 name"></div>
+        <div id = 'tv16' class="col-md-1-10 my-Col"><span id = "tv16Label"></span><img id ='img-tv16' src="img/tv_white_144.png" class= "my_img"  alt="16"><div id ='tv16source'></div><input type="text" id = "inputTV16name" class = "my_form_input" name ="16" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV16 name"></div>
+        <div id = 'tv17' class="col-md-1-10 my-Col"><span id = "tv17Label"></span><img id ='img-tv17' src="img/tv_white_144.png" class= "my_img"  alt="17"><div id ='tv17source'></div><input type="text" id = "inputTV17name" class = "my_form_input" name ="17" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV17 name"></div>
+        <div id = 'tv18' class="col-md-1-10 my-Col"><span id = "tv18Label"></span><img id ='img-tv18' src="img/tv_white_144.png" class= "my_img"  alt="18"><div id ='tv18source'></div><input type="text" id = "inputTV18name" class = "my_form_input" name ="18" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV18 name"></div>
+        <div id = 'tv19' class="col-md-1-10 my-Col"><span id = "tv19Label"></span><img id ='img-tv19' src="img/tv_white_144.png" class= "my_img"  alt="19"><div id ='tv19source'></div><input type="text" id = "inputTV19name" class = "my_form_input" name ="19" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV19 name"></div>
+        <div id = 'tv20' class="col-md-1-10 my-Col"><span id = "tv20Label"></span><img id ='img-tv20' src="img/tv_white_144.png" class= "my_img"  alt="20"><div id ='tv20source'></div><input type="text" id = "inputTV20name" class = "my_form_input" name ="20" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV20 name"></div>
+      </div>
+                    
+    <div class="row">
+        <div id = 'tv21' class="col-md-1-10 my-Col"><span id = "tv21Label"></span><img id ='img-tv21' src="img/tv_white_144.png" class= "my_img"  alt="21"><div id ='tv21source'></div><input type="text" id = "inputTV21name" class = "my_form_input" name ="21" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV21 name"></div>
+        <div id = 'tv22' class="col-md-1-10 my-Col"><span id = "tv22Label"></span><img id ='img-tv22' src="img/tv_white_144.png" class= "my_img"  alt="22"><div id ='tv22source'></div><input type="text" id = "inputTV22name"  class = "my_form_input" name ="22" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV22 name"></div>
+        <div id = 'tv23' class="col-md-1-10 my-Col"><span id = "tv23Label"></span><img id ='img-tv23' src="img/tv_white_144.png" class= "my_img"  alt="23"><div id ='tv23source'></div><input type="text" id = "inputTV23name" class = "my_form_input" name ="23" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV23 name"></div>
+        <div id = 'tv24' class="col-md-1-10 my-Col"><span id = "tv24Label"></span><img id ='img-tv24' src="img/tv_white_144.png" class= "my_img"  alt="24"><div id ='tv24source'></div><input type="text" id = "inputTV24name" class = "my_form_input" name ="24" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV24 name"></div>
+        <div id = 'tv25' class="col-md-1-10 my-Col"><span id = "tv25Label"></span><img id ='img-tv25' src="img/tv_white_144.png" class= "my_img"  alt="25"><div id ='tv25source'></div><input type="text" id = "inputTV25name" class = "my_form_input" name ="25" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV25 name"></div>
+        <div id = 'tv26' class="col-md-1-10 my-Col"><span id = "tv26Label"></span><img id ='img-tv26' src="img/tv_white_144.png" class= "my_img"  alt="26"><div id ='tv26source'></div><input type="text" id = "inputTV26name" class = "my_form_input" name ="26" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV26 name"></div>
+        <div id = 'tv27' class="col-md-1-10 my-Col"><span id = "tv27Label"></span><img id ='img-tv27' src="img/tv_white_144.png" class= "my_img"  alt="27"><div id ='tv27source'></div><input type="text" id = "inputTV27name" class = "my_form_input" name ="27" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV27 name"></div>
+        <div id = 'tv28' class="col-md-1-10 my-Col"><span id = "tv28Label"></span><img id ='img-tv28' src="img/tv_white_144.png" class= "my_img"  alt="28"><div id ='tv28source'></div><input type="text" id = "inputTV28name" class = "my_form_input" name ="28" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV28 name"></div>
+        <div id = 'tv29' class="col-md-1-10 my-Col"><span id = "tv29Label"></span><img id ='img-tv29' src="img/tv_white_144.png" class= "my_img"  alt="29"><div id ='tv29source'></div><input type="text" id = "inputTV29name" class = "my_form_input" name ="29" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV29 name"></div>
+        <div id = 'tv30' class="col-md-1-10 my-Col"><span id = "tv30Label"></span><img id ='img-tv30' src="img/tv_white_144.png" class= "my_img"  alt="30"><div id ='tv30source'></div><input type="text" id = "inputTV30name" class = "my_form_input" name ="30" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV30 name"></div>
+    </div>
+                  
+    <div class="row">
+        <div id = 'tv31' class="col-md-1-10 my-Col"><span id = "tv31Label"></span><img id ='img-tv31' src="img/tv_white_144.png" class= "my_img"  alt="31"><div id ='tv31source'></div><input type="text" id = "inputTV31name" class = "my_form_input" name ="31" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV31 name"></div>
+        <div id = 'tv32' class="col-md-1-10 my-Col"><span id = "tv32Label"></span><img id ='img-tv32' src="img/tv_white_144.png" class= "my_img"  alt="32"><div id ='tv32source'></div><input type="text" id = "inputTV32name"  class = "my_form_input" name ="32" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV32 name"></div>
+        <div id = 'tv33' class="col-md-1-10 my-Col"><span id = "tv33Label"></span><img id ='img-tv33' src="img/tv_white_144.png" class= "my_img"  alt="33"><div id ='tv33source'></div><input type="text" id = "inputTV33name" class = "my_form_input" name ="33" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV33 name"></div>
+        <div id = 'tv34' class="col-md-1-10 my-Col"><span id = "tv34Label"></span><img id ='img-tv34' src="img/tv_white_144.png" class= "my_img"  alt="34"><div id ='tv34source'></div><input type="text" id = "inputTV34name" class = "my_form_input" name ="34" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV34 name"></div>
+        <div id = 'tv35' class="col-md-1-10 my-Col"><span id = "tv35Label"></span><img id ='img-tv35' src="img/tv_white_144.png" class= "my_img"  alt="35"><div id ='tv35source'></div><input type="text" id = "inputTV35name" class = "my_form_input" name ="35" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV35 name"></div>
+        <div id = 'tv36' class="col-md-1-10 my-Col"><span id = "tv36Label"></span><img id ='img-tv36' src="img/tv_white_144.png" class= "my_img"  alt="36"><div id ='tv36source'></div><input type="text" id = "inputTV36name" class = "my_form_input" name ="36" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV36 name"></div>
+        <div id = 'tv37' class="col-md-1-10 my-Col"><span id = "tv37Label"></span><img id ='img-tv37' src="img/tv_white_144.png" class= "my_img"  alt="37"><div id ='tv37source'></div><input type="text" id = "inputTV37name" class = "my_form_input" name ="37" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV37 name"></div>
+        <div id = 'tv38' class="col-md-1-10 my-Col"><span id = "tv38Label"></span><img id ='img-tv38' src="img/tv_white_144.png" class= "my_img"  alt="38"><div id ='tv38source'></div><input type="text" id = "inputTV38name" class = "my_form_input" name ="38" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV38 name"></div>
+        <div id = 'tv39' class="col-md-1-10 my-Col"><span id = "tv39Label"></span><img id ='img-tv39' src="img/tv_white_144.png" class= "my_img"  alt="39"><div id ='tv39source'></div><input type="text" id = "inputTV39name" class = "my_form_input" name ="39" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV39 name"></div>
+        <div id = 'tv40' class="col-md-1-10 my-Col"><span id = "tv40Label"></span><img id ='img-tv40' src="img/tv_white_144.png" class= "my_img"  alt="40"><div id ='tv40source'></div><input type="text" id = "inputTV40name" class = "my_form_input" name ="40" maxlength = "10" oninput="myTVInput(name)" value = "" placeholder=" TV40 name"></div>
+    </div>
+
+
+ 
+
+    <div class="row">
+        <div id ='TXsnapshot'class="col-md-4 my-Col" ><img src="img/TXcapture.bmp" id = 'TXvideoPreview'alt="octava"src="" width = 280px height = 160 ><br><span id = 'sourePreviewtext'>Source</span></div>
+        <div id ='csnapshotblank'class="col-md-4 my-Col" >          
+          <button id = 'send-btn' type="button" class= "btn btn-primary btn-lg my_middle" >
+            <span>SEND</span>
+            <i class="far fa-caret-square-right "></i>
+          </button>
+        </div>
+        <div id ='RXsnapshot'class="col-md-4 my-Col" ><img src="img/RXcapture.bmp" id = 'RXvideoPreview'alt="octava" src="" width = 280px height = 160 ><br><span id = 'displayPreviewtext'>Display View</span></div>        
+    </div>
+
+    <!-- VIDEO WALL START -->
+    <!-- <div class="grid-containerRX">
+        <div id = ''class="grid-item" >1</div>
+        <div id = ''class="grid-item" >2</div>
+        <div id = ''class="grid-item" >3</div>
+        
+        <div id = ''class="grid-item-vw2x2-1" >4</div>
+        <div id = ''class="grid-item-vw2x2-2">5</div>
+               
+        <div id = ''class="grid-item" >8</div>
+        <div id = ''class="grid-item" >9</div>
+        <div id = ''class="grid-item" >10</div>
+    </div>
+    <div class="grid-containerRX">
+        <div id = ''class="grid-item" >1</div>
+        <div id = ''class="grid-item" >2</div>
+        <div id = ''class="grid-item" >3</div>
+        
+        <div id = ''class="grid-item-vw2x2-1" >4</div>
+        <div id = ''class="grid-item-vw2x2-2">5</div>
+               
+        <div id = ''class="grid-item" >8</div>
+        <div id = ''class="grid-item" >9</div>
+        <div id = ''class="grid-item" >10</div>
+    </div> -->
+
+ <!-- VIDEO WALL END -->
+
+    <div class="row">
+        <div id = 'in1'class="col-md-1-10 my-Col" ><span id = "in1Label"></span><img  id="img-in1" src="img/input_white_144.png" class= "my_img" alt = "1" ><div  id ='In1name'></div><input type="text" id = "input1name" class = "my_form_input" name ="1" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video1 name"></div>
+        <div id = 'in2'class="col-md-1-10 my-Col" ><span id = "in2Label"></span><img  id="img-in2" src="img/input_white_144.png" class= "my_img" alt = "2" ><div  id ='In2name'></div><input type="text" id = "input2name" class = "my_form_input" name ="2" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video2 name"></div>
+        <div id = 'in3'class="col-md-1-10 my-Col" ><span id = "in3Label"></span><img  id="img-in3" src="img/input_white_144.png" class= "my_img" alt = "3" ><div  id ='In3name'></div><input type="text" id = "input3name" class = "my_form_input" name ="3" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video3 name"></div>
+        <div id = 'in4'class="col-md-1-10 my-Col" ><span id = "in4Label"></span><img  id="img-in4" src="img/input_white_144.png" class= "my_img" alt = "4" ><div  id ='In4name'></div><input type="text" id = "input4name" class = "my_form_input" name ="4" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video4 name"></div>
+        <div id = 'in5'class="col-md-1-10 my-Col" ><span id = "in5Label"></span><img  id="img-in5" src="img/input_white_144.png" class= "my_img" alt = "5" ><div  id ='In5name'></div><input type="text" id = "input5name" class = "my_form_input" name ="5" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video5 name"></div>
+        <div id = 'in6'class="col-md-1-10 my-Col" ><span id = "in6Label"></span><img  id="img-in6" src="img/input_white_144.png" class= "my_img" alt = "6" ><div  id ='In6name'></div><input type="text" id = "input6name" class = "my_form_input" name ="6" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video6 name"></div>
+        <div id = 'in7'class="col-md-1-10 my-Col" ><span id = "in7Label"></span><img  id="img-in7" src="img/input_white_144.png" class= "my_img" alt = "7" ><div  id ='In7name'></div><input type="text" id = "input7name" class = "my_form_input" name ="7" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video7 name"></div>
+        <div id = 'in8'class="col-md-1-10 my-Col" ><span id = "in8Label"></span><img  id="img-in8" src="img/input_white_144.png" class= "my_img" alt = "8" ><div  id ='In8name'></div><input type="text" id = "input8name" class = "my_form_input" name ="8" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video8 name"></div>
+        <div id = 'in9'class="col-md-1-10 my-Col" ><span id = "in9Label"></span><img  id="img-in9" src="img/input_white_144.png" class= "my_img" alt = "9" ><div  id ='In9name'></div><input type="text" id = "input9name" class = "my_form_input" name ="9" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video9 name"></div>
+        <div id = 'in10'class="col-md-1-10 my-Col" ><span id = "in10Label"></span><img id="img-in10" src="img/input_white_144.png" class= "my_img" alt = "10" ><div  id ='In10name'></div><input type="text" id = "input10name" class = "my_form_input" name ="10" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video10 name"></div>
+    </div>
+
+    <div class="row">
+        <div id = 'in11'class="col-md-1-10 my-Col" ><span id = "in11Label"></span><img  id="img-in11" src="img/input_white_144.png" class= "my_img" alt = "11" ><div  id ='In11name'></div><input type="text" id = "input11name" class = "my_form_input" name ="11" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video11 name"></div>
+        <div id = 'in12'class="col-md-1-10 my-Col" ><span id = "in12Label"></span><img  id="img-in12" src="img/input_white_144.png" class= "my_img" alt = "12" ><div  id ='In12name'></div><input type="text" id = "input12name" class = "my_form_input" name ="12" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video12 name"></div>
+        <div id = 'in13'class="col-md-1-10 my-Col" ><span id = "in13Label"></span><img  id="img-in13" src="img/input_white_144.png" class= "my_img" alt = "13" ><div  id ='In13name'></div><input type="text" id = "input13name" class = "my_form_input" name ="13" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video13 name"></div>
+        <div id = 'in14'class="col-md-1-10 my-Col" ><span id = "in14Label"></span><img  id="img-in14" src="img/input_white_144.png" class= "my_img" alt = "14" ><div  id ='In14name'></div><input type="text" id = "input14name" class = "my_form_input" name ="14" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video14 name"></div>
+        <div id = 'in15'class="col-md-1-10 my-Col" ><span id = "in15Label"></span><img  id="img-in15" src="img/input_white_144.png" class= "my_img" alt = "15" ><div  id ='In15name'></div><input type="text" id = "input15name" class = "my_form_input" name ="15" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video15 name"></div>
+        <div id = 'in16'class="col-md-1-10 my-Col" ><span id = "in16Label"></span><img  id="img-in16" src="img/input_white_144.png" class= "my_img" alt = "16" ><div  id ='In16name'></div><input type="text" id = "input16name" class = "my_form_input" name ="16" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video16 name"></div>
+        <div id = 'in17'class="col-md-1-10 my-Col" ><span id = "in17Label"></span><img  id="img-in17" src="img/input_white_144.png" class= "my_img" alt = "17" ><div  id ='In17name'></div><input type="text" id = "input17name" class = "my_form_input" name ="17" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video17 name"></div>
+        <div id = 'in18'class="col-md-1-10 my-Col" ><span id = "in18Label"></span><img  id="img-in18" src="img/input_white_144.png" class= "my_img" alt = "18" ><div  id ='In18name'></div><input type="text" id = "input18name" class = "my_form_input" name ="18" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video18 name"></div>
+        <div id = 'in19'class="col-md-1-10 my-Col" ><span id = "in19Label"></span><img  id="img-in19" src="img/input_white_144.png" class= "my_img" alt = "19" ><div  id ='In19name'></div><input type="text" id = "input19name" class = "my_form_input" name ="19" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video19 name"></div>
+        <div id = 'in20'class="col-md-1-10 my-Col" ><span id = "in20Label"></span><img id="img-in20" src="img/input_white_144.png" class= "my_img" alt = "20" ><div  id ='In20name'></div><input type="text" id = "input20name" class = "my_form_input" name ="20" maxlength = "10" oninput="mySourceInput(name)" value = "" placeholder=" Video20 name"></div>
+    </div>   
+
+
+
+</div>
+
+
+
+<nav id = "mynavbar" class="navbar fixed-bottom navbar-expand-sm bg-dark justify-content-center ">
+  <ul  class="navbar-nav">
+      <li class="nav-item my_spacing">
+          <img id ='img-home' src="img/home_white.png" height = 48px width =48px  alt="99" >
+          <span class="navbar-text text-white">Home</span>
+        </li>
+
+    <li  class="nav-item">
+        <img id ='img-TV-All' src="img/all_tv_white_sm.png" height = 48px width =48px  alt="99" >
+        <span class="navbar-text text-white">All TVs</span>
+    </li>
+
+    <li class="nav-item my_spacing">
+      <img id ='img-TV-Fav' src="img/bookmark_white.png"  height = 48px width =48px >
+      <span class="navbar-text text-white">Favorite</span>
+    </li>
+    <li class="nav-item my_spacing">
+      <img id ='img-video-wall' src="img/2x2_white.png"  height = 48px width =48px alt = "22">
+      <span id = '2x2vw-status' class="navbar-text text-white">Video Wall ON </span>
+  
+    </li>
+    <li class="nav-item my_spacing">
+      <img id ='img-video-wall-off' src="img/2x2_off_white.png"  height = 48px width =48px alt = "220">
+      <span class="navbar-text text-white">Video Wall OFF </span>
+  
+    </li>
+
+  </ul>
+
+<!--  
+  <form class="form-inline ">
+      <button id = 'save-btn' class="btn btn-primary btn-block my_spacing " type="button" onclick = "saveUserInputs()"> &nbsp Save	&nbsp</button>
+      
+  </form>
+  
+  <form  class="form-inline ">
+      <button id = 'cancel-btn' class="btn btn-danger btn-block my_spacing" type="button" onclick = "show_Home()">Cancel</button>
+  </form> -->
+  
+</nav>
+
+<script>
+
+  function openSideMenu(){
+      document.getElementById('my_side-menu').style.width= '250px'  ; // Sets Side Menu  width to = 250px wide. Give it open effect.
+      // document.getElementById('my_main').style.marginLeft= '250px'  ; // Moves the Main body to the right,  so the left edge starts at edge of side menu
+  }
+
+  function closeSideMenu(){
+      document.getElementById('my_side-menu').style.width= '0'  ; // Sets Side Menu  width to = 250px wide. Give it open effect.
+    //  document.getElementById('my_main').style.marginLeft= '0'  ; // Moves the Main body to the right,  so the left edge starts at edge of side menu
+  }
+        
+</script>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery-3.4.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+
+<script>
+    var onlongtouch; 
+    var timer;
+    var touchduration = 1000; //length of time we want the user to touch before we do something
+
+     
+    var userIN_TV_Names = 
+          {
+          "tv1":"","tv2":"","tv3":"","tv4":"","tv5":"","tv6":"","tv7":"","tv8":"","tv9":"","tv10":"",
+          "tv11":"","tv12":"","tv13":"","tv14":"","tv15":"","tv16":"","tv17":"","tv18":"","tv19":"","tv20":"",
+          "tv21":"","tv22":"","tv23":"","tv24":"","tv25":"","tv26":"","tv27":"","tv28":"","tv29":"","tv30":"",
+          "tv31":"","tv32":"","tv33":"","tv34":"","tv35":"","tv36":"","tv37":"","tv38":"","tv39":"","tv40":"",
+          "in1":"","in2":"","in3":"","in4":"","in5":"","in6":"","in7":"","in8":"","in9":"","in10":"",
+          "in11":"","in12":"","in13":"","in14":"","in15":"","in16":"","in17":"","in18":"","in19":"","in20":""
+    
+          }
+
+    var userIN_TV_Names_OBJ = {}; // User stored Input and TV Names
+    var userFavorite_Scene_OBJ ={}; // User stored Favorite
+
+    var TVSelect = '0'
+    var SourceSelect = '0'
+    var currentScene = 
+                      {"TV1" :"1", "TV2" :"1", "TV3" :"1", "TV4" :"1", "TV5" :"1", "TV6" :"1", "TV7" :"1", "TV8" :"1", "TV9" :"1", "TV10" :"1",
+                        "TV11" :"1", "TV12" :"1", "TV13" :"1", "TV14" :"1", "TV15" :"1", "TV16" :"1", "TV17" :"1", "TV18" :"1", "TV19" :"1", "TV20" :"1",
+                        "TV21" :"1", "TV22" :"1", "TV23" :"1", "TV24" :"1", "TV25" :"1", "TV26" :"1", "TV27" :"1", "TV28" :"1", "TV29" :"1", "TV30" :"1",
+                        "TV31" :"1", "TV32" :"1", "TV33" :"1", "TV34" :"1", "TV35" :"1", "TV36" :"1", "TV37" :"1", "TV38" :"1", "TV39" :"1", "TV40" :"1"
+
+                      };  
+    var favoriteScene = 
+                        {"TV1" :"1", "TV2" :"1", "TV3" :"1", "TV4" :"1", "TV5" :"1", "TV6" :"1", "TV7" :"1", "TV8" :"1", "TV9" :"1", "TV10" :"1",
+                        "TV11" :"1", "TV12" :"1", "TV13" :"1", "TV14" :"1", "TV15" :"1", "TV16" :"1", "TV17" :"1", "TV18" :"1", "TV19" :"1", "TV20" :"1",
+                        "TV21" :"1", "TV22" :"1", "TV23" :"1", "TV24" :"1", "TV25" :"1", "TV26" :"1", "TV27" :"1", "TV28" :"1", "TV29" :"1", "TV30" :"1",
+                        "TV31" :"1", "TV32" :"1", "TV33" :"1", "TV34" :"1", "TV35" :"1", "TV36" :"1", "TV37" :"1", "TV38" :"1", "TV39" :"1", "TV40" :"1"
+
+                        };
+
+    // URL for the Screen Capture requested
+
+    var URL_RX_snap_shot = 'http://172.31.3.1' ;  // Display/RX
+    var URL_TX_snap_shot = 'http://172.31.2.1' ; // Source/TX
+
+     //CaptureRXScreen();
+     //CaptureTXScreen();   
+
+    // //SetInverval Events
+    var rx_feedback_interval = null; 
+    var rx_capture_interval = null;
+    var tx_capture_interval= null;
+
+    // Timer Interval for Screen capture and RXFeedback
+     const RX_feedback_time = 10000 ;//mS
+     const RX_refresh_time = 2000 ;//mS
+     const TX_refresh_time = 3321 ;//mS
+
+    //  setInterval(CaptureRXScreen, RX_refresh_time);
+    //  setInterval(CaptureTXScreen, TX_refresh_time);
+      
+    EventListen_TV_Buttons();    // Create Event Listeners for all TV Buttons
+    EventListen_Input_Buttons(); // Create Event Listeners for all Input Buttons
+    EventListen_Send_Button();   // Create Event Listeners for Send Button
+    EventListen_Home();          // Create Event Listeners for Home
+
+    show_Home();  // Show HOME scene
+
+    //setInterval(RX_CH_Feedback, 10000) // Find out what each RX is connected to Get updated RX feedback every 10 seconds
+
+
+    /***EventListen_TV_Buttons()******************************************************************************************
+           Add Event Listener to TV Image and Favorite Image
+    **********************************************************************************************************************/    
+
+    // Add Event Listener to TV Image and Favorite Image
+    function EventListen_TV_Buttons(){
+
+        document.getElementById("img-TV-All").addEventListener("mouseover", function () {
+          document.getElementById("img-TV-All").src = 'img/all_tv_blue_sm.png';
+        
+        });
+
+        document.getElementById("img-TV-All").addEventListener("mouseout", function () {
+          document.getElementById("img-TV-All").src = 'img/all_tv_white_sm.png';
+
+        });
+
+        document.getElementById("img-TV-All").addEventListener("click", function (alt) {
+
+          TVSelect = this.alt // Track which TV button was clicked. alt = 99 when ALL TV clicked
+          URL_RX_snap_shot = 'http://172.31.3.1'; //Set Preview of RX to RX 1
+          document.getElementById("SelectedTV_Label").innerHTML = 'ALL TVs' ;  // ALL TVs button clicked
+          document.getElementById("displayPreviewtext").innerHTML = 'ALL TVs' ;  // ALL TVs button clicked
+          
+          show_Sources() // Show source buttons
+
+        });
+
+        // Favorite
+        document.getElementById("img-TV-Fav").addEventListener("mouseover", function () {
+          document.getElementById("img-TV-Fav").src = 'img/bookmark_blue.png';
+        
+        });
+
+        document.getElementById("img-TV-Fav").addEventListener("mouseout", function () {
+          document.getElementById("img-TV-Fav").src = 'img/bookmark_white.png';
+
+        });
+
+        document.getElementById("img-TV-Fav").addEventListener("click", function () {
+            
+            SwitchToFavoriteScene();
+
+        });
+
+        // 2x2 Video Wall ON
+        document.getElementById("img-video-wall").addEventListener("mouseover", function () {
+         
+          document.getElementById("img-video-wall").src = 'img/2x2_blue.png';
+        
+        });
+
+        document.getElementById("img-video-wall").addEventListener("mouseout", function () {
+          document.getElementById("img-video-wall").src = 'img/2x2_white.png';
+         });
+
+        document.getElementById("img-video-wall").addEventListener("click", function () {
+         
+          TVSelect = this.alt;
+          URL_RX_snap_shot = 'http://172.31.3.41';  //Set Preview of RX to RX 41 ( top left of 2x2 Video Wall)
+          
+          VideoWall_2x2();
+
+      });
+
+        // 2x2 Video Wall OFF
+
+      document.getElementById("img-video-wall-off").addEventListener("mouseover", function () {
+         
+         document.getElementById("img-video-wall-off").src = 'img/2x2_off_blue.png';
+       
+       });
+
+       document.getElementById("img-video-wall-off").addEventListener("mouseout", function () {
+         document.getElementById("img-video-wall-off").src = 'img/2x2_off_white.png';
+        });
+
+       document.getElementById("img-video-wall-off").addEventListener("click", function () {
+
+         TVSelect = this.alt;
+       
+         VideoWall_2x2();
+
+
+     });
+
+     // TV's
+
+      for (let i = 1; i <= 40; i++) {
+
+          document.getElementById("img-tv" + i).addEventListener("mouseover", function () {
+            document.getElementById("img-tv" + i).src = 'img/tv_blue_144.png';
+        
+
+        });
+
+          document.getElementById("img-tv" + i).addEventListener("mouseout", function () {
+            document.getElementById("img-tv" + i).src = 'img/tv_white_144.png';
+        });
+
+          document.getElementById("img-tv" + i).addEventListener("click", function (alt) {
+            
+            TVSelect = this.alt // Track which TV button was clicked.
+            URL_RX_snap_shot  = 'http://172.31.3.' + TVSelect ;   // IP address of selectd RX
+           
+            document.getElementById("SelectedTV_Label").innerHTML = userIN_TV_Names_OBJ['tv'+(this.alt)] ;  //this.alt gets the alt tag of the img-tv ID clicked . 1 = TV1, 2 = TV2 etc
+                      
+            show_Sources() // Show source buttons
+        });
+
+      }
+
+    }
+
+    /***EventListen_Input_Buttons()******************************************************************************************
+            Add Event Listener to Input Image
+    **********************************************************************************************************************/    
+         
+    function EventListen_Input_Buttons(){
+
+      for (let i = 1; i <= 20; i++) {
+
+          document.getElementById("img-in" + i).addEventListener("mouseover", function () {
+                       
+            if ( i !== SourceSelect){
+              document.getElementById("img-in" + i).src = 'img/input_blue_144.png';
+         
+            }else{
+              
+            }
+          });
+
+          document.getElementById("img-in" + i).addEventListener("mouseout", function () {
+                                 
+          if ( this.alt !== SourceSelect){
+              document.getElementById("img-in" + i).src = 'img/input_white_144.png';
+
+          }else if ( this.alt == SourceSelect){
+              document.getElementById("img-in" + i).src = 'img/input_blue_144.png';
+            }
+        });
+
+
+        document.getElementById("img-in" + i).addEventListener("click", function (alt) {
+              
+            SourceSelect = this.alt // Track which Source button was clicked.
+            URL_TX_snap_shot = 'http://172.31.2.' + SourceSelect ;
+            document.getElementById('sourePreviewtext').innerHTML = userIN_TV_Names_OBJ['in'+SourceSelect];
+           // RX_Switch(CaptureRXScreen);
+           
+            //Set All the input buttons to White first
+            for (let i = 1; i<=20;i++){
+              document.getElementById("img-in" + i).src = 'img/input_white_144.png';
+            }
+            //Set Selected the input button to blue
+            document.getElementById("img-in" + i).src = 'img/input_blue_144.png';         
+           
+        });
+
+      }
+    }
+
+     /***EventListen_Send_Button()******************************************************************************************
+          
+      **************************************************************************************************************/  
+      function EventListen_Send_Button(){
+
+        document.getElementById("send-btn").addEventListener("click", function () {
+          
+          RX_Switch(CaptureRXScreen);
+          document.getElementById("send-btn").className = "btn btn-secondary btn-lg my_middle";
+           setTimeout(function(){
+            document.getElementById("send-btn").className = "btn btn-primary btn-lg my_middle";
+            },
+            1000);
+                                     
+        });
+
+      }
+
+    /***EventListen_Home_Button()******************************************************************************************
+        
+    **************************************************************************************************************/  
+    function EventListen_Home(){
+
+      document.getElementById("img-home").addEventListener("mouseover", function () {
+            
+          document.getElementById("img-home").src = 'img/home_blue.png';
+                                    
+      });
+      document.getElementById("img-home").addEventListener("mouseout", function () {
+          
+          document.getElementById("img-home").src = 'img/home_white.png';
+                                    
+      });
+        
+      document.getElementById("img-home").addEventListener("click", function () {
+        
+        show_Home();
+                                    
+      });
+
+    }
+
+    /***myTVInput(name)******************************************************************************************
+           Trigged by oninput(), echoes what the user is typing in
+    **************************************************************************************************************/  
+      
+    function myTVInput(name) {
+            let _name= name
+            document.getElementById("tv"+_name+"source").innerHTML = document.getElementById("inputTV"+_name+"name").value;
+    }
+
+    /***mySourceInput(name)***************************************************************************************
+           Trigged by oninput(), echoes what the user typed in for Source Name to labeling
+    **************************************************************************************************************/  
+ 
+    function mySourceInput(name) {
+            let _name= name;
+            document.getElementById("In"+_name+"name").innerHTML = document.getElementById("input"+_name+"name").value;
+    }
+
+    /*** show_Home() ***************************************************************************************
+      
+    **************************************************************************************************************/
+    function show_Home(){
+
+        show_RX_TV()
+        hide_TX_Input()
+        hide_snapshot_row()
+        hide_input_forms()
+        hide_Save_Cancel_button()
+        hide_Selected_TV()
+       
+      rx_feedback_interval = setInterval("RX_CH_Feedback()",RX_feedback_time);
+
+
+      // Stop Capture Screen
+      clearInterval(rx_capture_interval);
+      clearInterval(tx_capture_interval);
+
+      // Show bottom NavBar
+                    
+      document.getElementById("mynavbar").style.visibility = "visible";
+
+      // Show Hamburger Menu
+        document.getElementById( "hamburger_menu").style.visibility = "visible";
+   
+      //  Read from TX1 stored values and show only the Active TV Img and labels  
+        read_from_TX1("userIN_TV_Names_DB",function(){
+
+        //  Show only the Active TV Img and labels
+          for(let i= 1; i<=40; i++){
+            
+              // To Enable the TV img on mouse/pointer.    
+              document.getElementById("img-tv"+i).style.pointerEvents = 'auto';
+
+              if(userIN_TV_Names_OBJ['tv'+i] =='empty' ){
+                document.getElementById("tv"+i+"Label").style.visibility = "hidden";
+                document.getElementById("img-tv"+i).style.visibility = "hidden";
+
+              }else{
+                document.getElementById("img-tv"+i).style.visibility = "visible";     
+                document.getElementById("tv"+i+"Label").innerHTML = userIN_TV_Names_OBJ['tv'+i];
+              }
+          }
+
+          })
+
+     
+      // Close the Side Menu
+      closeSideMenu()
+      
+    }
+      
+    /*** show_Source_Scene() *************************************************************************************
+      
+    **************************************************************************************************************/
+    function show_Sources(){
+
+      // Stop Capture Screen
+      clearInterval(rx_capture_interval);
+      clearInterval(tx_capture_interval);
+
+      clearInterval(rx_feedback_interval);  
+
+       
+      rx_capture_interval = setInterval(CaptureRXScreen, RX_refresh_time);
+      tx_capture_interval = setInterval(CaptureTXScreen, TX_refresh_time);
+
+ 
+      hide_RX_TV()
+      hide_input_forms()
+      show_snapshot_row()
+      show_TX_Input()   // Show all TX and Input Img first.
+      show_Selected_TV()
+
+     // Hide Hamburger Menu
+     document.getElementById( "hamburger_menu").style.visibility = "hidden";
+
+      // Show only the Active Input Img and labels
+      for(let i= 1; i<=20; i++){
+      
+          // To Enable the Input img on mouse/pointer.    
+          document.getElementById("img-in"+i).style.pointerEvents = 'auto';
+
+          if(userIN_TV_Names_OBJ['in'+i] =='empty' ){
+            document.getElementById("in"+i+"Label").style.visibility = "hidden";
+            document.getElementById("img-in"+i).style.visibility = "hidden";
+                  
+          }else{
+            document.getElementById("in"+i+"Label").style.visibility = "hidden";
+            document.getElementById("img-in"+i).style.visibility = "visible";     
+            document.getElementById("In"+i+"name").innerHTML = userIN_TV_Names_OBJ['in'+i];
+          }
+      }
+
+    // Update the Snap Shot  Display Labels
+      
+      // Single TV mode
+      if(TVSelect!=99){
+        document.getElementById('displayPreviewtext').innerHTML = userIN_TV_Names_OBJ['tv'+TVSelect];
+      // All TV mode
+      }else{
+        document.getElementById('displayPreviewtext').innerHTML = 'ALL TVs'
+      }
+      
+   
+      
+    }
+
+    /*** show_Devices() ***************************************************************************************
+      
+    **************************************************************************************************************/
+    function show_Devices(){
+
+  
+      //Pause 
+       clearInterval(rx_feedback_interval);  
+       clearInterval(rx_capture_interval);
+       clearInterval(tx_capture_interval);
+            
+      hide_snapshot_row();    
+      show_RX_TV(); // Show all RX and TV Img first.
+      show_TX_Input();
+      show_input_forms();
+      show_Save_Cancel_button();
+      hide_Selected_TV();
+ 
+  
+      // Hide bottom NavBar
+      document.getElementById("mynavbar").style.visibility = "hidden";
+
+      // Hide Hamburger Menu
+      document.getElementById( "hamburger_menu").style.visibility = "hidden";
+
+  
+      // Re-lable to RX1, RX2...RX40
+      for(let i= 1; i<=40; i++){
+        document.getElementById("tv"+i+"Label").style.visibility = "visible";
+        document.getElementById("tv"+i+"Label").innerHTML = "RX"+i;
+
+        // To disable the TV img from mouse/pointer.  
+        document.getElementById("img-tv"+i).style.pointerEvents = 'none';
+  
+
+      }           
+      // Re-lable to TX1, TX2...TX20
+      for(let i= 1; i<=20; i++){
+        document.getElementById("in"+i+"Label").style.visibility = "visible";
+        document.getElementById("in"+i+"Label").innerHTML = "TX"+i;
+
+          // To disable the TV img from mouse/pointer.    
+          document.getElementById("img-in"+i).style.pointerEvents = 'none';
+                      
+        }
+
+      //  Read from TX1 stored values show in Input form fields
+        read_from_TX1("userIN_TV_Names_DB",function(){
+          
+          for(let i = 1; i<=40; i++){
+
+            if(userIN_TV_Names_OBJ["tv"+i] == "empty"){
+              // Do nothing
+            }else{
+              document.getElementById("tv"+i+"source").innerHTML = userIN_TV_Names_OBJ["tv"+i] ;    
+              document.getElementById("inputTV"+i+"name").value = userIN_TV_Names_OBJ["tv"+i] ;        
+              
+            }
+          }
+          for(let i = 1; i<=20; i++){
+
+            if(userIN_TV_Names_OBJ["in"+i] == "empty"){
+              // Do nothing
+            }else{
+              document.getElementById("In"+i+"name").innerHTML = userIN_TV_Names_OBJ["in"+i] ;   
+              document.getElementById("input"+i+"name").value = userIN_TV_Names_OBJ["in"+i] ;         
+            }
+          }
+
+        })
+
+      // Close the Side Menu
+      closeSideMenu()
+    }    
+    
+
+    /*** Hide Selected TV Element **********************************************************************************
+      Hide TV Element at Top of the page
+    **************************************************************************************************************/
+    function hide_Selected_TV(){
+      document.getElementById("SelectedTV_Label").style.visibility = "hidden";
+      document.getElementById("img-selectedTV").style.visibility = "hidden";
+    }
+    /*** Show Selected TV Element **********************************************************************************
+      Show TV Element at Top of the page
+    **************************************************************************************************************/
+    function show_Selected_TV(){
+      document.getElementById("SelectedTV_Label").style.visibility = "visible";
+      document.getElementById("img-selectedTV").style.visibility = "visible";
+    }
+
+    /*** Hide Save and Cancel Button **********************************************************************************
+        
+    **************************************************************************************************************/
+    function hide_Save_Cancel_button(){
+
+        document.getElementById("save-btn").style.visibility = "hidden";
+        document.getElementById("cancel-btn").style.visibility = "hidden";
+    }
+
+    /*** Hide Save and Cancel Button **********************************************************************************
+        
+    **************************************************************************************************************/
+    function show_Save_Cancel_button(){
+
+    document.getElementById("save-btn").style.visibility = "visible";
+    document.getElementById("cancel-btn").style.visibility = "visible";
+    }
+    /*** Hide all RX and TV img **********************************************************************************
+        Hide all the RX and TV img elements from display
+    **************************************************************************************************************/
+    function hide_RX_TV(){
+
+      for(let i= 1; i<=40; i++){
+        document.getElementById("tv"+i).style.display = "none";
+        document.getElementById("tv"+i).style.visibility = "hidden";
+
+      }
+      
+    }
+    /*** Show all RX and TV img **********************************************************************************
+        Show all the RX and TV img elements from display
+    **************************************************************************************************************/
+    function show_RX_TV(){
+
+      for(let i= 1; i<=40; i++){
+        document.getElementById("tv"+i).style.display = "block";
+        document.getElementById("tv"+i).style.visibility = "visible";
+        document.getElementById("tv"+i+"Label").innerHTML = "RX"+i;
+        document.getElementById("img-tv"+i).style.visibility = "visible";          
+      }
+
+    }
+    /*** Hide all TX and Input img **********************************************************************************
+        Hide all the TX and Input img elements from display
+    **************************************************************************************************************/
+    function hide_TX_Input(){
+
+          for(let i= 1; i<=20; i++){
+            document.getElementById("in"+i).style.display = "none";
+            document.getElementById("in"+i).style.visibility = "hidden";
+
+          }
+    }
+    /*** Show all TX and Input img **********************************************************************************
+        Show all the TX and Input img elements from display
+    **************************************************************************************************************/
+    function show_TX_Input(){
+
+        for(let i= 1; i<=20; i++){
+          document.getElementById("in"+i).style.display = "block";
+          document.getElementById("in"+i).style.visibility = "visible";
+          document.getElementById("in"+i+"Label").innerHTML = "TX"+i;
+          document.getElementById("img-in"+i).style.visibility = "visible";
+          document.getElementById("img-in" + i).src = 'img/input_white_144.png';
+        }
+    }
+    /*** Hide Video Snap Shot Row ********************************************************************************
+        Hide the Video Snap Shot Row from display
+    **************************************************************************************************************/
+    function hide_snapshot_row(){
+      
+        document.getElementById("TXsnapshot").style.display = "none";
+        document.getElementById("TXsnapshot").style.visibility = "hidden";
+        document.getElementById("csnapshotblank").style.display = "none";
+        document.getElementById("csnapshotblank").style.visibility = "hidden";
+        document.getElementById("RXsnapshot").style.display = "none";
+        document.getElementById("RXsnapshot").style.visibility = "hidden";
+
+      }
+
+    /*** Show Video Snap Shot Row ********************************************************************************
+        Show the Video Snap Shot Row from display
+    **************************************************************************************************************/
+    function show_snapshot_row(){
+        
+        document.getElementById("TXsnapshot").style.display = "block";
+        document.getElementById("TXsnapshot").style.visibility = "visible";
+        document.getElementById("csnapshotblank").style.display = "block";
+        document.getElementById("csnapshotblank").style.visibility = "visible";
+        document.getElementById("RXsnapshot").style.display = "block";
+        document.getElementById("RXsnapshot").style.visibility = "visible";
+
+    }
+    
+    /*** hide_input_forms() **********************************************************************************
+        Hide Input Forms
+    **************************************************************************************************************/
+      function hide_input_forms(){
+
+        for(let i= 1; i<=40; i++){
+          document.getElementById("inputTV"+i+"name").style.display = "none";
+          document.getElementById("inputTV"+i+"name").style.visibility = "hidden";
+        }
+        for(let i= 1; i<=20; i++){
+          document.getElementById("input"+i+"name").style.display = "none";
+          document.getElementById("input"+i+"name").style.visibility = "hidden";
+        }
+      }
+    /*** show_input_forms() **********************************************************************************
+        Show Input Forms
+    **************************************************************************************************************/
+      function show_input_forms(){
+
+        for(let i= 1; i<=40; i++){
+          document.getElementById("inputTV"+i+"name").style.display = "block";
+          document.getElementById("inputTV"+i+"name").style.visibility = "visible";
+        }
+        for(let i= 1; i<=20; i++){
+          document.getElementById("input"+i+"name").style.display = "block";
+          document.getElementById("input"+i+"name").style.visibility = "visible";
+        }
+      }
+
+    /***saveUserInputs()*****************************************************************************************
+            Save what the user typed in for TV and Sources names
+            Convert to String then Send to TX1 and save as 'user_IN_TV_Names_DB'
+
+            {
+            "tv1: "","tv2: "", ..."tv40: "",
+            "in1: "","in2: "", "in20: "","
+            }
+        
+    **************************************************************************************************************/
+    function saveUserInputs(){
+
+
+      // Read TV Input form entries 
+          for(let i=1;i<=40;i++){
+          
+            if(document.getElementById("inputTV" + i + "name").value ==''){
+              
+              userIN_TV_Names['tv'+i] =  "empty"; 
+
+            }else {
+              userIN_TV_Names['tv'+i] = document.getElementById("inputTV" + i + "name").value;
+                
+            }
+                    
+          }
+
+           // Read Video Input form entries 
+          for(let i=1;i<=20;i++){
+
+            if(document.getElementById("input" + i + "name").value==''){
+
+              userIN_TV_Names['in'+i] = "empty";
+
+            }else {
+      
+              userIN_TV_Names['in'+i] = document.getElementById("input" + i + "name").value ;
+          
+            }
+                  
+          }
+         
+       
+      // Send / Write to TX1 and save as 'user_IN_TV_Names_DB' 
+          var xhr = new XMLHttpRequest(); 
+          xhr.open('POST',"http://172.31.2.1/cgi-bin/query.cgi?cmd=astparam s userIN_TV_Names_DB " + JSON.stringify(userIN_TV_Names) , true);
+          xhr.send();
+          
+          xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              xhr.open('POST',"http://172.31.2.1/cgi-bin/query.cgi?cmd=astparam save", true);
+              xhr.send();
+              xhr.abort();
+
+              alert('Saved Device Names to TX1 Databse');
+              show_Home(); 
+                                            
+            }
+          };
+        
+    }
+
+    /***read_from_TX1(callback)*****************************************************************************************
+        Read from the TX1 :  userIN_TV_Names_DB or FavoriteScene_DB
+        Then convert it to object format and save as userIN_TV_Names_OBJ
+        userIN_TV_Names_OBJ =
+            {
+            "tv1: "","tv2: "", ..."tv40: "",
+            "in1: "","in2: "", "in20: "","
+            }
+    **************************************************************************************************************/
+    function read_from_TX1(_whichDB ,callback){
+          
+          var whichDB = _whichDB;
+          var xhr = new XMLHttpRequest(); 
+        //  xhr.open('GET',"http://172.31.2.1/cgi-bin/query.cgi?cmd=astparam g userIN_TV_Names_DB ", true); 
+          xhr.open('GET',"http://172.31.2.1/cgi-bin/query.cgi?cmd=astparam g " + whichDB , true); 
+          xhr.send();	
+          xhr.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                                  
+                var dirtyJSON = this.responseText; // read in the pseduo JSON . Missing the double "" quotation marks    
+               // userIN_TV_Names_OBJ = JSON.parse('{'+dirtyJSON.replace(/([\s\w.-]+)/g,'"$1"') +'}'); //Add in the double " " quotation marks to make it in JSON format valid
+                if(whichDB == "userIN_TV_Names_DB"){
+                  console.log(dirtyJSON )
+                  userIN_TV_Names_OBJ = JSON.parse(dirtyJSON.replace(/([\s\w.-]+)/g,'"$1"')); //Add in the double " " quotation marks to make it in JSON format valid
+
+                }else if (whichDB == "FavoriteScene_DB" ){
+                  console.log('fav DB')
+                  userFavorite_Scene_OBJ = JSON.parse(dirtyJSON.replace(/([\s\w.-]+)/g,'"$1"')); //Add in the double " " quotation marks to make it in JSON format valid
+                }
+                
+              xhr.abort();
+              callback();
+                                
+              }else{
+                //Do Nothing
+              }
+              
+            };		
+    }
+
+    /***RX_Switch()******************************************************************************************
+            
+    **********************************************************************************************************************/    
+         
+    function RX_Switch(callback){
+
+      var chID = ''; //ch ID of TX 001,002,..010 etc
+
+      //  rxswitch command  is rxswitch:001  or rxswitch:010. Need to append "00" or "0"
+        if(SourceSelect <10){
+          chID = "00"+SourceSelect;
+        }else{
+          chID = "0"+SourceSelect;
+        }
+      
+      
+      if (TVSelect == '99'){  //ALL TVs switching to same Input
+            for(let i = 1; i<=40; i++){
+              
+              if(userIN_TV_Names_OBJ['tv'+i] != 'empty'){
+                
+                currentScene['TV'+i] = SourceSelect
+                fetch('http://172.31.3.'+(i)+'/cgi-bin/query.cgi?cmd=rxswitch:'+ chID )
+                .then(function(data) {
+                    // Here you get the data to modify as you please
+                    callback();
+                })
+                .catch(error => console.log(error));
+              
+              }else {
+                //do nothing
+              
+              }
+            }
+      // 2x2 Video Wall
+      }else if(TVSelect == '22'){
+        alert('Switch Video to 2x2 video wall')
+
+        //Set the RX Snap Shot to RX41 . Top Left of 2x2 Video Wall
+        URL_RX_snap_shot = 'http://172.31.3.41' ;  // Top Left of 2x2 Video Wall
+
+        for(let i = 1; i<=4;i++){
+          
+          fetch('http://172.31.3.4'+i+'/cgi-bin/query.cgi?cmd=rxswitch:'+ chID)
+              .then(function(data) {
+                  // Here you get the data to modify as you please
+                  //callback();
+              })
+              .catch(error => console.log(error));
+
+        }
+
+            
+      }else { //Single TV switching to Input
+
+          currentScene['TV'+TVSelect] = SourceSelect  // Store history of what each TV is switched to.
+          
+          fetch('http://172.31.3.'+(TVSelect)+'/cgi-bin/query.cgi?cmd=rxswitch:'+ chID )
+          .then(function(data) {
+          // Here you get the data to modify as you please
+              callback();
+          })
+          .catch(error => console.log(error));
+
+    }
+
+    }   
+
+    /***  RX_CH_Feedback()  **********************************************************************************************
+          Feedback.Shows what video source each display is currently connected to.
+          Poll the RX and get the TX CH ID the RX is switched to.
+          Update Display label with name of video source the display is switched to
+        
+    **************************************************************************************************************/
+    function RX_CH_Feedback(){
+
+      console.log(userIN_TV_Names_OBJ)
+
+    // Read the Video Input Source Names
+
+      for (let i = 1;i<=40;i++){
+
+        // Get feedback for all declared TV
+        if(userIN_TV_Names_OBJ['tv'+i] != 'empty'){
+
+        fetch('http://172.31.3.'+(i)+'/cgi-bin/query.cgi?cmd=astparam g ch_select')
+        .then(function(res) {
+      // Here you get the data to modify as you please
+
+          return res.text()
+
+        })
+        .then(function(data){
+          console.log(data)
+        
+          document.getElementById('tv'+i+'source').innerHTML =  userIN_TV_Names_OBJ['in'+parseInt(data)] //updates with name of the video source
+
+        })
+        
+        .catch(error => console.log("NOT DETECTED") );
+
+        } else {
+          // Do nothing
+        }    
+
+      }
+
+    }
+    
+    /***  saveFavoriteScene  **********************************************************************************************
+        
+          Save currentScene{} to TX1 as favoriteScene
+          1. Get RX Ch Feedback
+          2. Write to TX1 as FavoriteScene_DB
+        
+    **************************************************************************************************************/
+    function saveFavoriteScene(){
+
+    // Read the Video Input Source Names
+
+      for (let i = 1;i<=40;i++){
+
+        // Get feedback for all declared TV
+        if(userIN_TV_Names_OBJ['tv'+i] != 'empty'){
+
+        fetch('http://172.31.3.'+(i)+'/cgi-bin/query.cgi?cmd=astparam g ch_select')
+        .then(function(res) {
+        // Here you get the data to modify as you please
+
+          return res.text()
+
+        })
+        .then(function(data){
+          
+          favoriteScene["TV"+i] = (data);
+          
+        })
+        
+        .catch(error => console.log(error))
+
+        }  else {
+        // Do nothing
+        }    
+
+      }
+
+      //Wait 5 seconds before writing in to TX1. Try promise.all for improvement!
+      setTimeout(function(){ 
+           
+          var xhr = new XMLHttpRequest(); 
+          xhr.open('POST',"http://172.31.2.1/cgi-bin/query.cgi?cmd=astparam s FavoriteScene_DB " + JSON.stringify(favoriteScene) , true);
+          xhr.send();
+          
+          xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              xhr.open('POST',"http://172.31.2.1/cgi-bin/query.cgi?cmd=astparam save", true);
+              xhr.send();
+              xhr.abort();
+              alert("Saved Current Scene as Favorite");
+                        
+            }
+          };
+        
+      }, 5000);
+     
+    }
+
+
+    /***  SwitchToFavoriteScene()  **********************************************************************************************
+        
+         
+        
+    **************************************************************************************************************/
+    function SwitchToFavoriteScene(){
+
+      read_from_TX1("FavoriteScene_DB" ,function(){
+
+        for (let i = 1;i<=40;i++){
+
+          //Do only if TV is defined by user
+          if(userIN_TV_Names_OBJ['tv'+i] != 'empty'){ 
+          
+          // Switch TV to Favorite
+          fetch('http://172.31.3.'+(i)+'/cgi-bin/query.cgi?cmd=rxswitch:'+ userFavorite_Scene_OBJ['TV'+i].slice(1))  //slice(1) need to remove the lead "0" from RX Ch Feedback "0001" to "0001" so rxswitch will work.
+           .then(function(data) {
+           // Here you get the data to modify as you please
+           })
+           .catch(error => console.log(error));
+          }else{
+            //
+          }
+
+        }
+
+      })
+
+
+    }
+
+     //****Capture screen shot of the RX and save image as RXcapture.bmp in directory *************************************//
+    function CaptureRXScreen(){
+        
+        var img = new Image(); // RX Snapshot picture/image
+        console.log(URL_RX_snap_shot +'/cgi-bin/query.cgi?cmd=capture:on' );
+        console.log('RX Capture');
+        // fetch(URL_RX_snap_shot +'/cgi-bin/query.cgi?cmd=capture:on' )
+        // .then(function(data) {
+        //     // Here you get the data to modify as you please
+        //     img.src = URL_RX_snap_shot+ '/images/capture.bmp' + '?d=' + Date.now();
+        //     $("#RXvideoPreview").attr('src',img.src); 
+        //     CaptureRXScreen();
+        // })
+        // .catch(error => console.log(error));
+		
+       // img.src = URL_RX_snap_shot +'/images/capture.bmp'+ '?d=' + Date.now(); // update each .bmp file with date/time stamp so each has unique name
+        var xhr = new XMLHttpRequest(); 
+            xhr.open('GET',URL_RX_snap_shot +'/cgi-bin/query.cgi?cmd=capture:on', true);
+            xhr.send();	
+            xhr.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                img.src = URL_RX_snap_shot +'/images/capture.bmp'+ '?d=' + Date.now(); // update each .bmp file with date/time stamp so each has unique name
+                $("#RXvideoPreview").attr('src',img.src);  // Update Image Element in page
+                xhr.abort();
+              
+                
+              }
+            
+            };		
+                
+    }
+
+    //***** Capture Source shot of the TX and save image as TXcapture.bmp in directory *************************************//
+    function CaptureTXScreen(){
+                
+        var img = new Image(); // TX Snapshot picture/image
+         console.log(URL_TX_snap_shot +'/cgi-bin/query.cgi?cmd=capture:on' );
+          console.log('TX Capture');
+          // fetch(URL_TX_snap_shot +'/cgi-bin/query.cgi?cmd=capture:on' )
+          // .then(function(data) {
+          //     // Here you get the data to modify as you please
+          //     img.src = URL_TX_snap_shot + '/images/capture.bmp' + '?d=' + Date.now();
+          //     $("#TXvideoPreview").attr('src',img.src); 
+          //     CaptureTXScreen()
+        
+          // })
+          // .catch(error => console.log(error));
+         // img.src = URL_TX_snap_shot +'/images/capture.bmp' + '?d=' + Date.now(); // update each .bmp file with date/time stamp so each has unique name
+          var xhr = new XMLHttpRequest(); 
+            xhr.open('GET',URL_TX_snap_shot +'/cgi-bin/query.cgi?cmd=capture:on', true);
+            xhr.send();	
+            xhr.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                img.src = URL_TX_snap_shot +'/images/capture.bmp' + '?d=' + Date.now(); // update each .bmp file with date/time stamp so each has unique name
+                $("#TXvideoPreview").attr('src',img.src);  // Update Image Element in page
+                xhr.abort();
+             
+                
+              }
+            
+            };		
+            
+    }
+
+    /*****function VideoWall_2x2()********************************************************************************************
+
+    ***************************************************************************************************************************/
+    function VideoWall_2x2(){
+
+      // Stop Capture Screen
+      clearInterval(rx_capture_interval);
+      clearInterval(tx_capture_interval);
+         
+      document.getElementById("SelectedTV_Label").innerHTML = '2x2 Video Wall' ;
+  
+            
+    // Turn OFF 2x2 Video Wall
+      if(TVSelect =='220'){
+          alert("Turn Off 2x2 Video Wall")
+      
+          for(let i = 1; i<=4; i++){
+                        
+              fetch('http://172.31.3.4'+i+'/cgi-bin/query.cgi?cmd=vw:off')
+              .then(function(data) {
+                  // Here you get the data to modify as you please
+                  //callback();
+                  fetch('http://172.31.3.4'+i+'/cgi-bin/query.cgi?cmd=rxswitch:00'+i)
+                  .then(function(data) {
+                    // Here you get the data to modify as you please
+                    //callback();
+                  })
+                  .catch(error => console.log(error));
+                  
+              })
+              .catch(error => console.log(error));
+                           
+            }
+        show_Home();
+
+      // Turn ON 2x2 Video Wall
+      }else if(TVSelect =='22'){
+        alert("Turn On 2x2 Video Wall")
+       
+          
+                                                    
+          fetch('http://172.31.3.41/cgi-bin/query.cgi?cmd=2x2_r1c1:on')
+          .then(function(data) {
+              // Here you get the data to modify as you please
+              //callback();
+          })
+          .catch(error => console.log(error));
+
+          fetch('http://172.31.3.42/cgi-bin/query.cgi?cmd=2x2_r1c2:on')
+          .then(function(data) {
+              // Here you get the data to modify as you please
+              //callback();
+          })
+          .catch(error => console.log(error));
+
+          fetch('http://172.31.3.43/cgi-bin/query.cgi?cmd=2x2_r2c1:on')
+          .then(function(data) {
+              // Here you get the data to modify as you please
+              //callback();
+          })
+          .catch(error => console.log(error));
+
+          fetch('http://172.31.3.44/cgi-bin/query.cgi?cmd=2x2_r2c2:on')
+          .then(function(data) {
+              // Here you get the data to modify as you please
+              //callback();
+          })
+          .catch(error => console.log(error));
+
+          // Go To Source Select Scene
+          show_Sources();
+          document.getElementById('displayPreviewtext').innerHTML = '2x2 Video Wall' ;
+
+      }
+
+      // Switch  the Video Wall to Source 1
+      for(let i = 1; i<=4;i++){
+          
+          fetch('http://172.31.3.4'+i+'/cgi-bin/query.cgi?cmd=rxswitch:001')
+              .then(function(data) {
+                  // Here you get the data to modify as you please
+                  //callback();
+              })
+              .catch(error => console.log(error));
+
+        }
+      
+       
+
+
+    }
+
+
+    
+    
+    </script>
+    
+  </body>
+</html>
+
+   
