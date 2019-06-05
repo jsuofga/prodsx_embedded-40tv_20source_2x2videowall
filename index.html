@@ -217,7 +217,7 @@
         <!-- symbol for X for 'close' = &times -->
         <a href = "#" class = "btn-close" onclick = "closeSideMenu()">&times;</a>  
         <a href="#" onclick= "show_Home()"><span class="fas fa-home" aria-hidden="true"></span> Home </a>
-        <a href="#"><span class = "fas fa-cog" aria-hidden="true"></span> Settings</a>
+        <a href="#" ><span class = "fas fa-cog" aria-hidden="true"></span> Settings</a>
         <a href="#" onclick = "show_Devices()"><span class= "fas fa-tv" aria-hidden="true" ></span> Devices</a>
         <a href="#" onclick = "saveFavoriteScene()"><span class="fas fa-bookmark" aria-hidden="true" ></span> Save Scene</a>      
 
@@ -402,12 +402,12 @@
       <img id ='img-TV-Fav' src="img/bookmark_white.png"  height = 48px width =48px >
       <span class="navbar-text text-white">Favorite</span>
     </li>
-    <li class="nav-item my_spacing">
+    <li id = "video-wall-btn" class="nav-item my_spacing">
       <img id ='img-video-wall' src="img/2x2_white.png"  height = 48px width =48px alt = "22">
       <span id = '2x2vw-status' class="navbar-text text-white">Video Wall ON </span>
   
     </li>
-    <li class="nav-item my_spacing">
+    <li id = "video-wall-off-btn" class="nav-item my_spacing">
       <img id ='img-video-wall-off' src="img/2x2_off_white.png"  height = 48px width =48px alt = "220">
       <span class="navbar-text text-white">Video Wall OFF </span>
   
@@ -1237,6 +1237,9 @@
     **************************************************************************************************************/
     function RX_CH_Feedback(){
 
+    // Test if video wall is needed by testing for RX41
+      show_hide_video_wall();
+
       console.log(userIN_TV_Names_OBJ)
 
     // Read the Video Input Source Names
@@ -1249,7 +1252,8 @@
         fetch('http://172.31.3.'+(i)+'/cgi-bin/query.cgi?cmd=astparam g ch_select')
         .then(function(res) {
       // Here you get the data to modify as you please
-
+      
+          document.getElementById('img-tv'+i).src = "img/tv_white_144.png";
           return res.text()
 
         })
@@ -1260,7 +1264,13 @@
 
         })
         
-        .catch(error => console.log("NOT DETECTED") );
+        .catch(function(){
+         
+         // show RED error "\" on TV icon
+          document.getElementById('img-tv'+i).src = "img/tv_white_144-not_detected.png";
+        });
+        
+        
 
         } else {
           // Do nothing
@@ -1438,7 +1448,7 @@
             
     // Turn OFF 2x2 Video Wall
       if(TVSelect =='220'){
-          alert("Turn Off 2x2 Video Wall")
+        alert("2x2 Video Wall = 4 Small Screens ")
       
           for(let i = 1; i<=4; i++){
                         
@@ -1461,10 +1471,8 @@
 
       // Turn ON 2x2 Video Wall
       }else if(TVSelect =='22'){
-        alert("Turn On 2x2 Video Wall")
-       
-          
-                                                    
+        alert("2x2 Video Wall = 1 Large Screen ")
+                                                         
           fetch('http://172.31.3.41/cgi-bin/query.cgi?cmd=2x2_r1c1:on')
           .then(function(data) {
               // Here you get the data to modify as you please
@@ -1512,8 +1520,27 @@
         }
       
        
+    }
 
+    /*****function show_hide_video_wall()********************************************************************************************
+      Test if 2x2 Video Wall Buttons should be shown. 
+      IF RX41  detected= SHOWvideo wall button at bottom banner
+       IF RX41 NOT detected= HIDEvideo wall button at bottom banner
+    ***************************************************************************************************************************/
+      function show_hide_video_wall(){
 
+        fetch('http://172.31.3.41/cgi-bin/query.cgi?cmd=astparam g ch_select')
+              .then(function(data) {
+                  // Here you get the data to modify as you please
+                  document.getElementById("video-wall-btn").style.display = 'block';
+                  document.getElementById("video-wall-off-btn").style.display = 'block';
+              })
+              .catch(function(){
+                document.getElementById("video-wall-btn").style.display = 'none';
+                document.getElementById("video-wall-off-btn").style.display = 'none';
+
+              });
+         
     }
 
 

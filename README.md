@@ -7,6 +7,9 @@ Top Right = RX 0.41 ( 172.41.3.42)<br>
 Bottom Left = RX 0.41 ( 172.41.3.43)<br>
 Bottom Right = RX 0.41 ( 172.41.3.44)<br>
 
+Shows 2x2 Video Wall button if RX41 is detected. Hide if RX41 is not detected<br>
+
+
 This app can be uploaded to the PRO DSX TX. Recommend loading to TX 1 ( 172.31.2.1).
 
 Procedure:
